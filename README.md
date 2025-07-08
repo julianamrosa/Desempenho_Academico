@@ -12,5 +12,6 @@ Arquivos:
 - pages/app1.py: script que gera a página com as distribuições das variáveis relacionadas a hábitos pessoais dos estudantes.
 - pages/app1_1.py: script que gera a página com as correlações entre as variáveis relacionadas a hábitos pessoais dos estudantes e o seu desempenho escolar.
 - pages/app2.py: script que gera a página com as distribuições das variáveis relacionadas a hábitos acadêmicos dos estudantes.
+- - pages/app2_1.py: script que gera a página com as correlações entre as variáveis relacionadas a vida acadêmica do estudante e seu contexto educacional.
 - logo.png: imagem da logo criada para o projeto.
 - student_habits.csv: arquivo com os dados extraídos do kaggle.
