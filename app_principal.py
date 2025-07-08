@@ -97,5 +97,9 @@ with col2:
                 <div class="button-label">Vida Acadêmica</div>
                 <a href="/app2" class="round-button">🎓</a>
             </div>
+            <div class="button-box">
+                <div class="button-label">Regressão Linear</div>
+                <a href="/reg" class="round-button">📉</a>
+            </div>
         </div>
     """, unsafe_allow_html=True)
