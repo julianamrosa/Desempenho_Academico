@@ -11,7 +11,8 @@ Arquivos:
 - app_principal.py: script que gera a página inicial do dashboard.
 - pages/app1.py: script que gera a página com as distribuições das variáveis relacionadas a hábitos pessoais dos estudantes.
 - pages/app1_1.py: script que gera a página com as correlações entre as variáveis relacionadas a hábitos pessoais dos estudantes e o seu desempenho escolar.
-- pages/app2.py: script que gera a página com as distribuições das variáveis relacionadas a hábitos acadêmicos dos estudantes.
-- pages/app2_1.py: script que gera a página com as correlações entre as variáveis relacionadas a vida acadêmica do estudante e seu contexto educacional.
+- pages/app2.py: script que gera a página com as distribuições das variáveis relacionadas à vida acadêmica dos estudantes.
+- pages/app2_1.py: script que gera a página com as correlações entre as variáveis relacionadas à vida acadêmica dos estudantes e o seu desempenho escolar.
+- pages/reg.py: script que gera a página com os resultados do modelo de regressão linear para as notas dos estudantes.
 - logo.png: imagem da logo criada para o projeto.
 - student_habits.csv: arquivo com os dados extraídos do kaggle.
