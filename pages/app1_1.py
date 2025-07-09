@@ -112,34 +112,40 @@ with col3:
 col4, col5 = st.columns(2)
 
 with col4:
-    fig0 = px.box(df, y='exam_score', x='gender')
+    fig0 = px.box(df, y='exam_score', x='gender', 
+                  color='gender',
+                  color_discrete_map={'Male': '#FF6B6B', 'Female': '#4ECDC4'})
 
     fig0.update_traces(boxmean=True)
 
     fig0.update_layout(
-    title='Distribuição de Notas por Gênero',
-    xaxis_title='Gênero',
-    yaxis_title='Notas',
-    title_x=0.25
+        title='Distribuição de Notas por Gênero',
+        xaxis_title='Gênero',
+        yaxis_title='Notas',
+        title_x=0.25,
+        showlegend=False
     )
 
     st.plotly_chart(fig0, use_container_width=True)
 
 with col5:
-    fig1 = px.box(df, y='exam_score', x='diet_quality')
+    fig1 = px.box(df, y='exam_score', x='diet_quality',
+                  color='diet_quality',
+                  color_discrete_map={'Poor': '#FF6B6B', 'Fair': '#FFA726', 'Good': '#66BB6A'})
 
     fig1.update_traces(boxmean=True)
 
     fig1.update_layout(
-    title='Distribuição de Notas por Qualidade da Dieta',
-    xaxis_title='Qualidade da Dieta',
-    yaxis_title='Notas',
-    title_x=0.25
+        title='Distribuição de Notas por Qualidade da Dieta',
+        xaxis_title='Qualidade da Dieta',
+        yaxis_title='Notas',
+        title_x=0.25,
+        showlegend=False
     )
     st.plotly_chart(fig1, use_container_width=True)
 
 df = df.sort_values(by=['age', 'exam_score'])
-cores = px.colors.sequential.Viridis
+cores = px.colors.sequential.Plasma  # Mudando para Plasma para cores mais vibrantes
 
 # Normalizar notas para pegar cores proporcionais
 min_nota = df['exam_score'].min()
@@ -174,7 +180,7 @@ for _, row in df.iterrows():
         y=[None],
         mode='markers',
         marker=dict(
-            colorscale='Viridis',  # mesma escala usada nas barras
+            colorscale='Plasma',  # mesma escala usada nas barras
             cmin=min_nota,
             cmax=max_nota,
             colorbar=dict(title='Nota'),
@@ -184,8 +190,6 @@ for _, row in df.iterrows():
         showlegend=False
     ))
 
-
-    
 st.plotly_chart(fig, use_container_width=True)
 
 # ---------------------------------------------
@@ -194,35 +198,47 @@ st.plotly_chart(fig, use_container_width=True)
 col7, col8, col9 = st.columns(3)
 
 with col7:
-    fig3 = px.scatter(df, x="social_media_hours", y="exam_score")
+    fig3 = px.scatter(df, x="social_media_hours", y="exam_score",
+                      color_discrete_sequence=['#9C27B0'])
+    
+    fig3.update_traces(marker=dict(size=8, line=dict(width=1, color='#7B1FA2')))
+    
     fig3.update_layout(
-    title='Distribuição de Notas por Horas nas Redes Sociais',
-    xaxis_title='Horas nas Redes',
-    yaxis_title='Notas',
-    title_x=0.25
-)
+        title='Distribuição de Notas por Horas nas Redes Sociais',
+        xaxis_title='Horas nas Redes',
+        yaxis_title='Notas',
+        title_x=0.25
+    )
 
     st.plotly_chart(fig3, use_container_width=True)
 
 with col8:
-    fig4 = px.scatter(df, x="netflix_hours", y="exam_score")
+    fig4 = px.scatter(df, x="netflix_hours", y="exam_score",
+                      color_discrete_sequence=['#FF5722'])
+    
+    fig4.update_traces(marker=dict(size=8, line=dict(width=1, color='#D84315')))
+    
     fig4.update_layout(
-    title='Distribuição de Notas por Horas na Netflix',
-    xaxis_title='Horas na Netflix',
-    yaxis_title='Notas',
-    title_x=0.25
-)
+        title='Distribuição de Notas por Horas na Netflix',
+        xaxis_title='Horas na Netflix',
+        yaxis_title='Notas',
+        title_x=0.25
+    )
     
     st.plotly_chart(fig4, use_container_width=True)
 
 with col9:
-    fig5 = px.scatter(df, x="sleep_hours", y="exam_score")
+    fig5 = px.scatter(df, x="sleep_hours", y="exam_score",
+                      color_discrete_sequence=['#2196F3'])
+    
+    fig5.update_traces(marker=dict(size=8, line=dict(width=1, color='#1976D2')))
+    
     fig5.update_layout(
-    title='Distribuição de Notas por Horas de Sono',
-    xaxis_title='Horas de Sono',
-    yaxis_title='Notas',
-    title_x=0.25
-)
+        title='Distribuição de Notas por Horas de Sono',
+        xaxis_title='Horas de Sono',
+        yaxis_title='Notas',
+        title_x=0.25
+    )
     
     st.plotly_chart(fig5, use_container_width=True)
 
@@ -232,29 +248,41 @@ with col9:
 col10, col11 = st.columns(2)
 
 with col10:
-    fig6 = px.box(df, y='exam_score', x='exercise_frequency')
+    # Criar escala de cores para exercícios (0-7 dias)
+    exercise_colors = ['#FF6B6B', '#FF8A65', '#FFA726', '#FFB74D', '#AED581', '#81C784', '#66BB6A', '#4CAF50']
+    
+    fig6 = px.box(df, y='exam_score', x='exercise_frequency',
+                  color='exercise_frequency',
+                  color_discrete_sequence=exercise_colors)
 
     fig6.update_traces(boxmean=True)
 
     fig6.update_layout(
-    title='Distribuição de Notas por Frequência Semanal de Exercício Físico',
-    xaxis_title='Exercícios Físicos',
-    yaxis_title='Notas',
-    title_x=0.25
+        title='Distribuição de Notas por Frequência Semanal de Exercício Físico',
+        xaxis_title='Exercícios Físicos',
+        yaxis_title='Notas',
+        title_x=0.25,
+        showlegend=False
     )
 
     st.plotly_chart(fig6, use_container_width=True)
 
 with col11:
-    fig7 = px.box(df, y='exam_score', x='mental_health_rating')
+    # Criar escala de cores para saúde mental (1-10)
+    mental_colors = ['#D32F2F', '#F44336', '#FF5722', '#FF7043', '#FFA726', '#FFB74D', '#FFCC02', '#8BC34A', '#4CAF50', '#2E7D32']
+    
+    fig7 = px.box(df, y='exam_score', x='mental_health_rating',
+                  color='mental_health_rating',
+                  color_discrete_sequence=mental_colors)
 
     fig7.update_traces(boxmean=True)
 
     fig7.update_layout(
-    title='Distribuição de Notas por Escore de Saúde Mental',
-    xaxis_title='Escores de Saúde Mental',
-    yaxis_title='Notas',
-    title_x=0.25
+        title='Distribuição de Notas por Escore de Saúde Mental',
+        xaxis_title='Escores de Saúde Mental',
+        yaxis_title='Notas',
+        title_x=0.25,
+        showlegend=False
     )
     
     st.plotly_chart(fig7, use_container_width=True)
@@ -264,15 +292,18 @@ fig8 = px.scatter(
     x="sleep_hours",
     y="exam_score",
     color="gender",
-    size="mental_health_rating"
+    size="mental_health_rating",
+    color_discrete_map={'Male': '#FF6B6B', 'Female': '#4ECDC4'}
 )
 
+fig8.update_traces(marker=dict(line=dict(width=1, color='white')))
+
 fig8.update_layout(
-title='Distribuição de Notas por Horas de Sono, Gênero e Saúde Mental',
-xaxis_title='Horas de Sono',
-yaxis_title='Notas',
-legend_title="Gênero",
-title_x=0.3
+    title='Distribuição de Notas por Horas de Sono, Gênero e Saúde Mental',
+    xaxis_title='Horas de Sono',
+    yaxis_title='Notas',
+    legend_title="Gênero",
+    title_x=0.3
 )
 
 st.plotly_chart(fig8, use_container_width=True)

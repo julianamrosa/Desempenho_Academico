@@ -114,55 +114,63 @@ with col4:
     fig0 = px.pie(
         names=df.gender.value_counts().index, 
         values=df.gender.value_counts().values,
-        hole=0.4
-        )
+        hole=0.4,
+        color_discrete_sequence=['#FF6B6B', '#4ECDC4', '#45B7D1']
+    )
 
     fig0.update_layout(
-    title='Contagem de Estudantes por Gênero',
-    title_x=0.25
-)
+        title='Contagem de Estudantes por Gênero',
+        title_x=0.25
+    )
 
     st.plotly_chart(fig0, use_container_width=True)
 
 with col5:
     mean_value=df.age.mean()
-    fig2 = px.bar(df.age.value_counts().sort_index())
+    fig2 = px.bar(df.age.value_counts().sort_index(),
+                  color_discrete_sequence=['#FF6B6B'])
+
+    fig2.update_traces(
+        marker_color='#FF6B6B',
+        marker_line_color='#FF3D3D',
+        marker_line_width=2
+    )
 
     fig2.update_layout(
-    title='Distribuição de Idades dos Estudantes',
-    xaxis_title='Idade',
-    yaxis_title='Contagem',
-    title_x=0.25,
-    showlegend=False,
-    annotations=[
-        go.layout.Annotation(
-            x=mean_value,
-            y=1.02,
-            xref="x",
-            yref="paper",
-            text=f"Média: {mean_value:.2f}",
-            showarrow=False,
-            font=dict(color="White"),
-        )
-    ]
-)
+        title='Distribuição de Idades dos Estudantes',
+        xaxis_title='Idade',
+        yaxis_title='Contagem',
+        title_x=0.25,
+        showlegend=False,
+        annotations=[
+            go.layout.Annotation(
+                x=mean_value,
+                y=1.02,
+                xref="x",
+                yref="paper",
+                text=f"Média: {mean_value:.2f}",
+                showarrow=False,
+                font=dict(color="White"),
+            )
+        ]
+    )
     fig2.update_xaxes(tickmode='linear')
 
     fig2.add_shape(
-    type="line",
-    x0=mean_value,
-    y0=0,
-    x1=mean_value,
-    y1=1,
-    xref="x",
-    yref="paper",
-    line=dict(
-        color="White",
-        width=2,
-        dash="dash",
-    ),
-    name=f"Mean: {mean_value:.2f}"
-)
+        type="line",
+        x0=mean_value,
+        y0=0,
+        x1=mean_value,
+        y1=1,
+        xref="x",
+        yref="paper",
+        line=dict(
+            color="White",
+            width=2,
+            dash="dash",
+        ),
+        name=f"Mean: {mean_value:.2f}"
+    )
 
     st.plotly_chart(fig2, use_container_width=True)
 
@@ -177,9 +185,9 @@ with col6:
     'mean': 'Média',
     'std': 'Desvio Padrão',
     'min': 'Min',
-    '25%': 'Q1',
+    '25%': 'Quartil 1',
     '50%': 'Mediana',
-    '75%': 'Q3',
+    '75%': 'Quartil 3',
     'max': 'Max'
 }).to_frame(name='Idade'))
 
@@ -191,17 +199,18 @@ col7, col8, col9 = st.columns(3)
 
 with col7:
     fig1 = px.bar(
-        df.diet_quality.value_counts().reindex(["Poor", "Fair", "Good"])
-        )
+        df.diet_quality.value_counts().reindex(["Poor", "Fair", "Good"]),
+        color_discrete_sequence=['#FF6B6B', '#FFA726', '#66BB6A']
+    )
 
     fig1.update_traces(textposition='outside')
     fig1.update_layout(
-    title='Distribuição de Qualidade da Dieta dos Estudantes',
-    xaxis_title='Qualidade da Dieta',
-    yaxis_title='Frequência',
-    title_x=0.25,
-    showlegend=False
-)
+        title='Distribuição de Qualidade da Dieta dos Estudantes',
+        xaxis_title='Qualidade da Dieta',
+        yaxis_title='Frequência',
+        title_x=0.25,
+        showlegend=False
+    )
 
     st.plotly_chart(fig1, use_container_width=True)
 
@@ -209,39 +218,45 @@ with col8:
     mean_value=df.social_media_hours.mean()
     fig3 = px.histogram(df, x='social_media_hours', nbins=10)
 
+    fig3.update_traces(
+        marker_color='#9C27B0',
+        marker_line_color='#7B1FA2',
+        marker_line_width=1
+    )
+
     fig3.update_layout(
-    title='Distribuição de Horas de Uso de Redes Sociais',
-    xaxis_title='Horas em Redes Sociais',
-    yaxis_title='Contagem',
-    title_x=0.25,
-    annotations=[
-        go.layout.Annotation(
-            x=mean_value,
-            y=1.02,
-            xref="x",
-            yref="paper",
-            text=f"Média: {mean_value:.2f}",
-            showarrow=False,
-            font=dict(color="White"),
-        )
-    ]
-)
+        title='Distribuição de Horas de Uso de Redes Sociais',
+        xaxis_title='Horas em Redes Sociais',
+        yaxis_title='Contagem',
+        title_x=0.25,
+        annotations=[
+            go.layout.Annotation(
+                x=mean_value,
+                y=1.02,
+                xref="x",
+                yref="paper",
+                text=f"Média: {mean_value:.2f}",
+                showarrow=False,
+                font=dict(color="White"),
+            )
+        ]
+    )
     
     fig3.add_shape(
-    type="line",
-    x0=mean_value,
-    y0=0,
-    x1=mean_value,
-    y1=1,
-    xref="x",
-    yref="paper",
-    line=dict(
-        color="White",
-        width=2,
-        dash="dash",
-    ),
-    name=f"Mean: {mean_value:.2f}"
-)
+        type="line",
+        x0=mean_value,
+        y0=0,
+        x1=mean_value,
+        y1=1,
+        xref="x",
+        yref="paper",
+        line=dict(
+            color="White",
+            width=2,
+            dash="dash",
+        ),
+        name=f"Mean: {mean_value:.2f}"
+    )
 
     st.plotly_chart(fig3, use_container_width=True)
 
@@ -271,39 +286,45 @@ with col10:
     mean_value=df.netflix_hours.mean()
     fig4 = px.histogram(df, x='netflix_hours', nbins=6)
 
+    fig4.update_traces(
+        marker_color='#FF5722',
+        marker_line_color='#D84315',
+        marker_line_width=1
+    )
+
     fig4.update_layout(
-    title='Distribuição de Horas Assistindo Netflix',
-    xaxis_title='Horas na Netflix',
-    yaxis_title='Contagem',
-    title_x=0.25,
-    annotations=[
-        go.layout.Annotation(
-            x=mean_value,
-            y=1.02,
-            xref="x",
-            yref="paper",
-            text=f"Média: {mean_value:.2f}",
-            showarrow=False,
-            font=dict(color="White"),
-        )
-    ]
-)
+        title='Distribuição de Horas Assistindo Netflix',
+        xaxis_title='Horas na Netflix',
+        yaxis_title='Contagem',
+        title_x=0.25,
+        annotations=[
+            go.layout.Annotation(
+                x=mean_value,
+                y=1.02,
+                xref="x",
+                yref="paper",
+                text=f"Média: {mean_value:.2f}",
+                showarrow=False,
+                font=dict(color="White"),
+            )
+        ]
+    )
     
     fig4.add_shape(
-    type="line",
-    x0=mean_value,
-    y0=0,
-    x1=mean_value,
-    y1=1,
-    xref="x",
-    yref="paper",
-    line=dict(
-        color="White",
-        width=2,
-        dash="dash",
-    ),
-    name=f"Mean: {mean_value:.2f}"
-)
+        type="line",
+        x0=mean_value,
+        y0=0,
+        x1=mean_value,
+        y1=1,
+        xref="x",
+        yref="paper",
+        line=dict(
+            color="White",
+            width=2,
+            dash="dash",
+        ),
+        name=f"Mean: {mean_value:.2f}"
+    )
     
     st.plotly_chart(fig4, use_container_width=True)
 
@@ -333,39 +354,45 @@ with col12:
     mean_value=df.sleep_hours.mean()
     fig5 = px.histogram(df, x='sleep_hours', nbins=7)
 
+    fig5.update_traces(
+        marker_color='#2196F3',
+        marker_line_color='#1976D2',
+        marker_line_width=1
+    )
+
     fig5.update_layout(
-    title='Distribuição de Horas de Sono dos Estudantes',
-    xaxis_title='Horas de Sono',
-    yaxis_title='Contagem',
-    title_x=0.25,
-    annotations=[
-        go.layout.Annotation(
-            x=mean_value,
-            y=1.02,
-            xref="x",
-            yref="paper",
-            text=f"Média: {mean_value:.2f}",
-            showarrow=False,
-            font=dict(color="White"),
-        )
-    ]
-)
+        title='Distribuição de Horas de Sono dos Estudantes',
+        xaxis_title='Horas de Sono',
+        yaxis_title='Contagem',
+        title_x=0.25,
+        annotations=[
+            go.layout.Annotation(
+                x=mean_value,
+                y=1.02,
+                xref="x",
+                yref="paper",
+                text=f"Média: {mean_value:.2f}",
+                showarrow=False,
+                font=dict(color="White"),
+            )
+        ]
+    )
     
     fig5.add_shape(
-    type="line",
-    x0=mean_value,
-    y0=0,
-    x1=mean_value,
-    y1=1,
-    xref="x",
-    yref="paper",
-    line=dict(
-        color="White",
-        width=2,
-        dash="dash",
-    ),
-    name=f"Mean: {mean_value:.2f}"
-)
+        type="line",
+        x0=mean_value,
+        y0=0,
+        x1=mean_value,
+        y1=1,
+        xref="x",
+        yref="paper",
+        line=dict(
+            color="White",
+            width=2,
+            dash="dash",
+        ),
+        name=f"Mean: {mean_value:.2f}"
+    )
     
     st.plotly_chart(fig5, use_container_width=True)
 
@@ -395,41 +422,47 @@ with col14:
     mean_value=df.exercise_frequency.mean()
     fig6 = px.bar(df.exercise_frequency.value_counts().sort_index())
 
+    fig6.update_traces(
+        marker_color='#4CAF50',
+        marker_line_color='#388E3C',
+        marker_line_width=2
+    )
+
     fig6.update_layout(
-    title='Frequência Semanal de Exercicios Fisicos',
-    xaxis_title='Exercícios Físicos Semanais',
-    yaxis_title='Contagem',
-    title_x=0.25,
-    showlegend=False,
-    annotations=[
-        go.layout.Annotation(
-            x=mean_value,
-            y=1.02,
-            xref="x",
-            yref="paper",
-            text=f"Média: {mean_value:.2f}",
-            showarrow=False,
-            font=dict(color="White"),
-        )
-    ]
-)
+        title='Frequência Semanal de Exercicios Fisicos',
+        xaxis_title='Exercícios Físicos Semanais',
+        yaxis_title='Contagem',
+        title_x=0.25,
+        showlegend=False,
+        annotations=[
+            go.layout.Annotation(
+                x=mean_value,
+                y=1.02,
+                xref="x",
+                yref="paper",
+                text=f"Média: {mean_value:.2f}",
+                showarrow=False,
+                font=dict(color="White"),
+            )
+        ]
+    )
     fig6.update_xaxes(tickmode='linear')
 
     fig6.add_shape(
-    type="line",
-    x0=mean_value,
-    y0=0,
-    x1=mean_value,
-    y1=1,
-    xref="x",
-    yref="paper",
-    line=dict(
-        color="White",
-        width=2,
-        dash="dash",
-    ),
-    name=f"Mean: {mean_value:.2f}"
-)
+        type="line",
+        x0=mean_value,
+        y0=0,
+        x1=mean_value,
+        y1=1,
+        xref="x",
+        yref="paper",
+        line=dict(
+            color="White",
+            width=2,
+            dash="dash",
+        ),
+        name=f"Mean: {mean_value:.2f}"
+    )
 
     st.plotly_chart(fig6, use_container_width=True)
 
@@ -451,7 +484,7 @@ with col15:
 }).to_frame(name='Exercícios Físicos'))
 
 # ---------------------------------------------
-# Seção
+# Seção 6
 # ---------------------------------------------
 col16, col17 = st.columns(2)
 
@@ -459,41 +492,47 @@ with col16:
     mean_value=df.mental_health_rating.mean()
     fig7 = px.bar(df.mental_health_rating.value_counts().sort_index())
 
+    fig7.update_traces(
+        marker_color='#FF9800',
+        marker_line_color='#F57C00',
+        marker_line_width=2
+    )
+
     fig7.update_layout(
-    title='Distribuição de Escores de Saúde Mental dos Estudantes',
-    xaxis_title='Escores',
-    yaxis_title='Contagem',
-    title_x=0.25,
-    showlegend=False,
-    annotations=[
-        go.layout.Annotation(
-            x=mean_value,
-            y=1.02,
-            xref="x",
-            yref="paper",
-            text=f"Média: {mean_value:.2f}",
-            showarrow=False,
-            font=dict(color="White"),
-        )
-    ]
-)
+        title='Distribuição de Escores de Saúde Mental dos Estudantes',
+        xaxis_title='Escores',
+        yaxis_title='Contagem',
+        title_x=0.25,
+        showlegend=False,
+        annotations=[
+            go.layout.Annotation(
+                x=mean_value,
+                y=1.02,
+                xref="x",
+                yref="paper",
+                text=f"Média: {mean_value:.2f}",
+                showarrow=False,
+                font=dict(color="White"),
+            )
+        ]
+    )
     fig7.update_xaxes(tickmode='linear')
 
     fig7.add_shape(
-    type="line",
-    x0=mean_value,
-    y0=0,
-    x1=mean_value,
-    y1=1,
-    xref="x",
-    yref="paper",
-    line=dict(
-        color="White",
-        width=2,
-        dash="dash",
-    ),
-    name=f"Mean: {mean_value:.2f}"
-)
+        type="line",
+        x0=mean_value,
+        y0=0,
+        x1=mean_value,
+        y1=1,
+        xref="x",
+        yref="paper",
+        line=dict(
+            color="White",
+            width=2,
+            dash="dash",
+        ),
+        name=f"Mean: {mean_value:.2f}"
+    )
 
     st.plotly_chart(fig7, use_container_width=True)
 
@@ -513,4 +552,3 @@ with col17:
     '75%': 'Q3',
     'max': 'Max'
 }).to_frame(name='Escore de Saúde Mental'))
-
