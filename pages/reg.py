@@ -1,10 +1,8 @@
-import pandas as pd
 import statsmodels.formula.api as smf
 import streamlit as st
 from PIL import Image   # para exibir imagens (ex: logo)
 import numpy as np
 import pandas as pd
-import numpy as np
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from sklearn.metrics import mean_squared_error
