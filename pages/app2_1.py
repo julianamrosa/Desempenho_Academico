@@ -56,7 +56,7 @@ with col1:
     # Faz a navegação só se for diferente da atual
     if opcao != st.session_state.pagina:
         if opcao == "Distribuições das Variáveis":
-            st.switch_page("app2.py")
+            st.switch_page("pages/app2.py")
 
 # ---------------------------------------------
 # Cabeçalho: título centralizado
@@ -87,7 +87,7 @@ with col3:
     hours_range = st.slider("Horas de Estudo", int(df['study_hours_per_day'].min()), int(df['study_hours_per_day'].max()), (int(df['study_hours_per_day'].min()), int(df['study_hours_per_day'].max())))
 
     # attendance_percentage Range Filter
-    attendance_range = st.slider("Horas de Estudo", int(df['attendance_percentage'].min()), int(df['attendance_percentage'].max()), (int(df['attendance_percentage'].min()), int(df['attendance_percentage'].max())))
+    attendance_range = st.slider("Presença nas Aulas (%)", int(df['attendance_percentage'].min()), int(df['attendance_percentage'].max()), (int(df['attendance_percentage'].min()), int(df['attendance_percentage'].max())))
 
     # Exam score Filter
     score_range = st.slider("Nota na Prova", int(df['exam_score'].min()), int(df['exam_score'].max()), (int(df['exam_score'].min()), int(df['exam_score'].max())))
