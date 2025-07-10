@@ -1,12 +1,10 @@
 streamlit
-base64
 pandas
-datetime
-PIL
 plotly
 matplotlib
 seaborn
 numpy
 statsmodels
-sklearn
+scikit-learn
 scipy
+Pillow
