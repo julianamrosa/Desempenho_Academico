@@ -27,7 +27,7 @@ df = pd.read_csv("student_habits.csv")
 # ---------------------------------------------
 # Configuração da página e layout inicial
 # ---------------------------------------------
-# st.set_page_config(layout="wide") # deixa a página em largura total
+st.set_page_config(layout="wide") # deixa a página em largura total
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
 image = Image.open('logo.png')   # logo larissa e ju
 
@@ -62,12 +62,9 @@ with col1:
 
 with col2:
     st.markdown("""
-    <h1 style='text-align: center; color: #d9d9d9; font-size: 2rem; margin-top: 1px;'>
+    <h1 style='text-align: center; color: #d9d9d9; font-size: 3rem; margin-top: 1px;'>
         VIDA ACADÊMICA E CONTEXTO EDUCACIONAL
     </h1>
-    <h2 style='text-align: center; color: #d9d9d9; font-size: 1.5rem; margin-top: 0.5px;'>
-        (Atividades acadêmicas e fatores socioeconômicos)
-    </h2>
     <h1 style='text-align: center; color: #d9d9d9; font-size: 2.5rem; margin-top: 0.5px;'>
         Distribuições das Variáveis
     </h1>
@@ -84,11 +81,11 @@ with col3:
     # Sidebar Filters
     st.header("Filtros")
 
-    # Age Range Filter
-    age_range = st.slider("Idade", int(df['age'].min()), int(df['age'].max()), (int(df['age'].min()), int(df['age'].max())))
+    # study_hours_per_day Range Filter
+    hours_range = st.slider("Horas de Estudo", int(df['study_hours_per_day'].min()), int(df['study_hours_per_day'].max()), (int(df['study_hours_per_day'].min()), int(df['study_hours_per_day'].max())))
 
-    # Gender Filter (single select)
-    gender_filter = st.selectbox("Gênero", options=['All'] + list(df['gender'].unique()))
+    # attendance_percentage Range Filter
+    attendance_range = st.slider("Horas de Estudo", int(df['attendance_percentage'].min()), int(df['attendance_percentage'].max()), (int(df['attendance_percentage'].min()), int(df['attendance_percentage'].max())))
 
     # Exam score Filter
     score_range = st.slider("Nota na Prova", int(df['exam_score'].min()), int(df['exam_score'].max()), (int(df['exam_score'].min()), int(df['exam_score'].max())))
@@ -96,12 +93,11 @@ with col3:
     # Apply Filters
     df_orig = df.copy()
 
-    if gender_filter != 'All':
-        df = df[df['gender'] == gender_filter]
-
     df = df[
-        (df['age'] >= age_range[0]) &
-        (df['age'] <= age_range[1]) &
+        (df['study_hours_per_day'] >= hours_range[0]) &
+        (df['study_hours_per_day'] <= hours_range[1]) &
+        (df['attendance_percentage'] >= attendance_range[0]) &
+        (df['attendance_percentage'] <= attendance_range[1]) &
         (df['exam_score'] >= score_range[0]) &
         (df['exam_score'] <= score_range[1])
     ]
@@ -109,11 +105,11 @@ with col3:
 # ---------------------------------------------
 # Data da última atualização
 # ---------------------------------------------
-col_date1, col_date2 = st.columns([0.6, 0.4])
+# col_date1, col_date2 = st.columns([0.6, 0.4])
 
-with col_date2:
-    box_date = str(datetime.datetime.now().strftime("%d %B %Y"))
-    st.info(f"📅 Última atualização: {box_date}")
+# with col_date2:
+#     box_date = str(datetime.datetime.now().strftime("%d %B %Y"))
+#     st.info(f"📅 Última atualização: {box_date}")
 
 # ---------------------------------------------
 # Seção 1: Distribuição de Horas de Estudo por Dia
@@ -433,99 +429,99 @@ with col17:
         'max': 'Max'
     }).to_frame(name='Notas'))
 
-# ---------------------------------------------
-# Seção 8: Distribuição de Idade
-# ---------------------------------------------
-col18, col19 = st.columns(2)
+# # ---------------------------------------------
+# # Seção 8: Distribuição de Idade
+# # ---------------------------------------------
+# col18, col19 = st.columns(2)
 
-with col18:
-    mean_value = df.age.mean()
-    fig8 = px.bar(df.age.value_counts().sort_index())
+# with col18:
+#     mean_value = df.age.mean()
+#     fig8 = px.bar(df.age.value_counts().sort_index())
 
-    fig8.update_layout(
-        title='Distribuição de Idades dos Estudantes',
-        xaxis_title='Idade',
-        yaxis_title='Contagem',
-        title_x=0.25,
-        showlegend=False,
-        annotations=[
-            go.layout.Annotation(
-                x=mean_value,
-                y=1.02,
-                xref="x",
-                yref="paper",
-                text=f"Média: {mean_value:.2f}",
-                showarrow=False,
-                font=dict(color="White"),
-            )
-        ]
-    )
-    fig8.update_xaxes(tickmode='linear')
+#     fig8.update_layout(
+#         title='Distribuição de Idades dos Estudantes',
+#         xaxis_title='Idade',
+#         yaxis_title='Contagem',
+#         title_x=0.25,
+#         showlegend=False,
+#         annotations=[
+#             go.layout.Annotation(
+#                 x=mean_value,
+#                 y=1.02,
+#                 xref="x",
+#                 yref="paper",
+#                 text=f"Média: {mean_value:.2f}",
+#                 showarrow=False,
+#                 font=dict(color="White"),
+#             )
+#         ]
+#     )
+#     fig8.update_xaxes(tickmode='linear')
 
-    fig8.add_shape(
-        type="line",
-        x0=mean_value,
-        y0=0,
-        x1=mean_value,
-        y1=1,
-        xref="x",
-        yref="paper",
-        line=dict(
-            color="White",
-            width=2,
-            dash="dash",
-        ),
-        name=f"Mean: {mean_value:.2f}"
-    )
+#     fig8.add_shape(
+#         type="line",
+#         x0=mean_value,
+#         y0=0,
+#         x1=mean_value,
+#         y1=1,
+#         xref="x",
+#         yref="paper",
+#         line=dict(
+#             color="White",
+#             width=2,
+#             dash="dash",
+#         ),
+#         name=f"Mean: {mean_value:.2f}"
+#     )
 
-    st.plotly_chart(fig8, use_container_width=True)
+#     st.plotly_chart(fig8, use_container_width=True)
 
-with col19:
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.table(df.age.describe().drop('count').rename({
-        'mean': 'Média',
-        'std': 'Desvio Padrão',
-        'min': 'Min',
-        '25%': 'Q1',
-        '50%': 'Mediana',
-        '75%': 'Q3',
-        'max': 'Max'
-    }).to_frame(name='Idade'))
+# with col19:
+#     st.write("")
+#     st.write("")
+#     st.write("")
+#     st.write("")
+#     st.write("")
+#     st.write("")
+#     st.table(df.age.describe().drop('count').rename({
+#         'mean': 'Média',
+#         'std': 'Desvio Padrão',
+#         'min': 'Min',
+#         '25%': 'Q1',
+#         '50%': 'Mediana',
+#         '75%': 'Q3',
+#         'max': 'Max'
+#     }).to_frame(name='Idade'))
 
-# ---------------------------------------------
-# Seção 9: Distribuição de Gênero
-# ---------------------------------------------
-col20, col21 = st.columns(2)
+# # ---------------------------------------------
+# # Seção 9: Distribuição de Gênero
+# # ---------------------------------------------
+# col20, col21 = st.columns(2)
 
-with col20:
-    fig9 = px.pie(
-        names=df.gender.value_counts().index, 
-        values=df.gender.value_counts().values,
-        hole=0.4,
-        title='Distribuição de Gênero'
-    )
+# with col20:
+#     fig9 = px.pie(
+#         names=df.gender.value_counts().index, 
+#         values=df.gender.value_counts().values,
+#         hole=0.4,
+#         title='Distribuição de Gênero'
+#     )
 
-    fig9.update_layout(
-        title_x=0.25
-    )
+#     fig9.update_layout(
+#         title_x=0.25
+#     )
 
-    st.plotly_chart(fig9, use_container_width=True)
+#     st.plotly_chart(fig9, use_container_width=True)
 
-with col21:
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
+# with col21:
+#     st.write("")
+#     st.write("")
+#     st.write("")
+#     st.write("")
+#     st.write("")
+#     st.write("")
     
-    # Criar tabela de estatísticas para variável categórica
-    gender_stats = df.gender.value_counts().reset_index()
-    gender_stats.columns = ['Gênero', 'Contagem']
-    gender_stats['Percentual'] = (gender_stats['Contagem'] / len(df) * 100).round(2)
-    st.table(gender_stats.set_index('Gênero'))
+#     # Criar tabela de estatísticas para variável categórica
+#     gender_stats = df.gender.value_counts().reset_index()
+#     gender_stats.columns = ['Gênero', 'Contagem']
+#     gender_stats['Percentual'] = (gender_stats['Contagem'] / len(df) * 100).round(2)
+#     st.table(gender_stats.set_index('Gênero'))

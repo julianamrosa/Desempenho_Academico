@@ -289,8 +289,8 @@ with col11:
 
 fig8 = px.scatter(
     df,
-    x="sleep_hours",
-    y="exam_score",
+    x="social_media_hours",
+    y="netflix_hours",
     color="gender",
     size="mental_health_rating",
     color_discrete_map={'Male': '#FF6B6B', 'Female': '#4ECDC4'}
@@ -299,9 +299,9 @@ fig8 = px.scatter(
 fig8.update_traces(marker=dict(line=dict(width=1, color='white')))
 
 fig8.update_layout(
-    title='Distribuição de Notas por Horas de Sono, Gênero e Saúde Mental',
-    xaxis_title='Horas de Sono',
-    yaxis_title='Notas',
+    title='Horas nas Redes Sociais e na Netflix, por Gênero e Saúde Mental',
+    xaxis_title='Horas nas Redes Sociais',
+    yaxis_title='Horas na Netflix',
     legend_title="Gênero",
     title_x=0.3
 )

@@ -64,12 +64,9 @@ with col1:
 
 with col2:
     st.markdown("""
-    <h1 style='text-align: center; color: #d9d9d9; font-size: 2rem; margin-top: 1px;'>
+    <h1 style='text-align: center; color: #d9d9d9; font-size: 3rem; margin-top: 1px;'>
         VIDA ACADÊMICA E CONTEXTO EDUCACIONAL
     </h1>
-    <h2 style='text-align: center; color: #d9d9d9; font-size: 1.5rem; margin-top: 0.5px;'>
-        (Atividades acadêmicas e fatores socioeconômicos)
-    </h2>
     <h1 style='text-align: center; color: #d9d9d9; font-size: 2.5rem; margin-top: 0.5px;'>
         Correlação com as Notas
     </h1>
@@ -86,27 +83,23 @@ with col3:
     # Sidebar Filters
     st.header("Filtros")
 
-    # Age Range Filter
-    age_range = st.slider("Idade", int(df['age'].min()), int(
-        df['age'].max()), (int(df['age'].min()), int(df['age'].max())))
+    # study_hours_per_day Range Filter
+    hours_range = st.slider("Horas de Estudo", int(df['study_hours_per_day'].min()), int(df['study_hours_per_day'].max()), (int(df['study_hours_per_day'].min()), int(df['study_hours_per_day'].max())))
 
-    # Gender Filter (single select)
-    gender_filter = st.selectbox(
-        "Gênero", options=['All'] + list(df['gender'].unique()))
+    # attendance_percentage Range Filter
+    attendance_range = st.slider("Horas de Estudo", int(df['attendance_percentage'].min()), int(df['attendance_percentage'].max()), (int(df['attendance_percentage'].min()), int(df['attendance_percentage'].max())))
 
     # Exam score Filter
-    score_range = st.slider("Nota na Prova", int(df['exam_score'].min()), int(
-        df['exam_score'].max()), (int(df['exam_score'].min()), int(df['exam_score'].max())))
+    score_range = st.slider("Nota na Prova", int(df['exam_score'].min()), int(df['exam_score'].max()), (int(df['exam_score'].min()), int(df['exam_score'].max())))
 
     # Apply Filters
     df_orig = df.copy()
 
-    if gender_filter != 'All':
-        df = df[df['gender'] == gender_filter]
-
     df = df[
-        (df['age'] >= age_range[0]) &
-        (df['age'] <= age_range[1]) &
+        (df['study_hours_per_day'] >= hours_range[0]) &
+        (df['study_hours_per_day'] <= hours_range[1]) &
+        (df['attendance_percentage'] >= attendance_range[0]) &
+        (df['attendance_percentage'] <= attendance_range[1]) &
         (df['exam_score'] >= score_range[0]) &
         (df['exam_score'] <= score_range[1])
     ]
@@ -114,11 +107,11 @@ with col3:
 # ---------------------------------------------
 # Data da última atualização
 # ---------------------------------------------
-col_date1, col_date2 = st.columns([0.6, 0.4])
+# col_date1, col_date2 = st.columns([0.6, 0.4])
 
-with col_date2:
-    box_date = str(datetime.datetime.now().strftime("%d %B %Y"))
-    st.info(f"📅 Última atualização: {box_date}")
+# with col_date2:
+#     box_date = str(datetime.datetime.now().strftime("%d %B %Y"))
+#     st.info(f"📅 Última atualização: {box_date}")
 
 # ---------------------------------------------
 # Seção 1: Gráfico de Dispersão - Notas vs Horas de Estudo
@@ -212,6 +205,7 @@ fig4 = px.box(
     df,
     x="parental_education_level",
     y="exam_score",
+    category_orders={'parental_education_level': ['High School', 'Bachelor', 'Master']},
     color="parental_education_level",
     title="Notas x Nível de Educação dos Pais",
     labels={
@@ -229,7 +223,7 @@ fig4.update_layout(
     showlegend=False
 )
 
-fig4.update_xaxes(tickangle=45)
+#fig4.update_xaxes(tickangle=45)
 
 st.plotly_chart(fig4, use_container_width=True)
 
@@ -242,6 +236,7 @@ fig5 = px.box(
     df,
     x="internet_quality",
     y="exam_score",
+    category_orders={'internet_quality': ['Poor', 'Average', 'Good']},
     color="internet_quality",
     title="Notas x Qualidade da Internet",
     labels={
