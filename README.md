@@ -16,4 +16,3 @@ Arquivos:
 - pages/reg.py: script que gera a página com os resultados do modelo de regressão linear para as notas dos estudantes.
 - logo.png: imagem da logo criada para o projeto.
 - student_habits.csv: arquivo com os dados extraídos do kaggle.
-- students_notebook.ipynb: notebook Python criado no Google Colab para processamento e exploração dos dados.

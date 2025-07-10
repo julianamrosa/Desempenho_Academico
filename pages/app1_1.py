@@ -130,6 +130,7 @@ with col4:
 
 with col5:
     fig1 = px.box(df, y='exam_score', x='diet_quality',
+                  category_orders={'diet_quality': ['Poor', 'Fair', 'Good']},
                   color='diet_quality',
                   color_discrete_map={'Poor': '#FF6B6B', 'Fair': '#FFA726', 'Good': '#66BB6A'})
 
@@ -282,7 +283,11 @@ with col11:
         xaxis_title='Escores de Saúde Mental',
         yaxis_title='Notas',
         title_x=0.25,
-        showlegend=False
+        showlegend=False,
+        xaxis=dict(
+        tickmode='linear',  # força os ticks a seguirem um espaçamento fixo
+        dtick=1             # espaçamento entre ticks (1 significa mostrar todos)
+    )
     )
     
     st.plotly_chart(fig7, use_container_width=True)
